@@ -1,5 +1,29 @@
 /* Empty. Add your own CSS if you like */
+
+
 .logo {
     font-weight: bold;
     font-size: 1.7em !important;
+}
+
+.gallery {
+    float: left;
+    line-height: 0;
+}
+@media (max-width: 9000px) {
+    .gallery {
+        width:20%;
+    }
+}
+
+@media (max-width: 700px) {
+    .gallery {
+        width:33.33%;
+    }
+}
+
+@media (max-width: 550px) {
+    .gallery {
+        width:50%;
+    }
 }
