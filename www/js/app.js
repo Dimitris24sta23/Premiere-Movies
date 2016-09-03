@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var movieApp = angular.module('movieApp', ['ionic', 'starter.controllers'])
+var movieApp = angular.module('movieApp', ['ionic', 'starter.controllers','ngSanitize'])
 
 movieApp.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -72,6 +72,16 @@ movieApp.config(function($stateProvider, $urlRouterProvider) {
           views: {
               'menuContent': {
                   templateUrl: 'templates/settings.html'
+              }
+          }
+      })
+
+      .state('app.movie', {
+          url: '/movie/:id',
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/movie.html',
+                  controller: 'MovieDetails'
               }
           }
       })

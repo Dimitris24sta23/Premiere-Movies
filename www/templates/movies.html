@@ -1,7 +1,9 @@
 <ion-view view-title="Movies">
   <ion-content ng-init="loadImages()">
       <div ng-repeat="image in movies" class="gallery">
-          <img ng-src="{{image.medium_cover_image}}" width="100%" />
+          <a ng-href="#/app/movie/{{image.id}}">
+            <img ng-src="{{image.medium_cover_image}}" width="100%" />
+          </a>
       </div>
   </ion-content>
 </ion-view>

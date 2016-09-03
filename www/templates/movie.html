@@ -1,0 +1,39 @@
+<ion-view ng-init="loadMovieDetails()" ng-cloak>
+    <ion-nav-title>{{movie.title_long}}</ion-nav-title>
+  <ion-content style="background: url('{{movie.background_image_original}}'); background-size: cover;">
+      <div class="row">
+          <div class="col col-33"><img src="{{movie.large_cover_image}}" width="100%"></div>
+          <div class="col col-67">
+              <div class="movie-details-panel">
+                  <h1>{{movie.title_english}} <span class="runtime">({{movie.runtime}}')</span></h1>
+                  <h5>{{genres}}</h5>
+                  <h2>{{movie.year}}</h2>
+                  <h4>IMDB: {{movie.rating}}</h4>
+                  <h5><span class="ion-archive"> Downloads: {{movie.download_count}}</span></h5>
+                  <h5><span class="ion-thumbsup"> {{movie.like_count}}</span></h5>
+                  <h5><span class="ion-flag"> {{movie.language}}</span> / <span class="ion-ios-star"> {{movie.mpa_rating}}</span> </h5>
+
+
+                  <div class="description">{{movie.description_intro}}</div>
+                  <br>
+                  <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;" class="button button-full ion-android-download button-balanced">
+                      Download
+                  </a>
+                  <br>
+                  <div class="list">
+                      <div class="item item-divider" ng-if=" movie.cast">
+                          <h2>Cast</h2>
+                      </div>
+                      <a class="item item-avatar" ng-repeat="cast in movie.cast">
+                          <img ng-src="{{ cast.url_small_image || 'https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif' }}">
+                          <h2>{{cast.name}}</h2>
+                          <p>{{cast.character_name}}</p>
+                      </a>
+
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </ion-content>
+</ion-view>

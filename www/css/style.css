@@ -1,5 +1,26 @@
 /* Empty. Add your own CSS if you like */
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.item, .menu, .pane{
+    background-color: #272727;
+}
+
+.item{
+    border-color: #000;
+}
+
+a.item,
+.item-divider h6{
+    color: #fff;
+}
+
+.activated{
+    background-color: #000 !important;
+    border-color: #000 !important;
+}
 
 .logo {
     font-weight: bold;
@@ -26,4 +47,36 @@
     .gallery {
         width:50%;
     }
+}
+
+.row h1{
+    color: #fff;
+}
+
+.runtime{
+    font-size: 0.6em;
+}
+
+.movie-details-panel{
+    color: #fff;
+    margin: 0 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.movie-details-panel h2,
+.movie-details-panel h3,
+.movie-details-panel h4,
+.movie-details-panel h5{
+    color: #fff;
+}
+
+.movie-details-panel .list a h2{
+     color: #fff;
+ }
+
+.movie-details-panel .item{
+    color: #4d4d4d;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
 }
