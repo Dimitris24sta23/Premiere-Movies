@@ -48,7 +48,7 @@ angular.module('starter.controllers', ['ngCordova'])
             .then(function(res){
                 $scope.movies = res.data.data.movies;
                 $ionicLoading.hide();
-                $scope.loader = "show"
+                $scope.loader = "show";
             });
 
     }
