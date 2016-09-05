@@ -1,7 +1,7 @@
 <ion-view ng-init="loadMovieDetails()" ng-cloak>
     <ion-nav-title>{{movie.title_long}}</ion-nav-title>
   <ion-content style="background: url('{{movie.background_image_original}}'); background-size: cover;">
-      <div class="row">
+      <div class="row responsive-sm">
           <div class="col col-33"><img src="{{movie.large_cover_image}}" width="100%"></div>
           <div class="col col-67">
               <div class="movie-details-panel">

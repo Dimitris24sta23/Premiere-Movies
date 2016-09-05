@@ -30,23 +30,105 @@ a.item,
 .gallery {
     float: left;
     line-height: 0;
+    position: relative;
 }
+
+.gallery .home-rate{
+    position: absolute;
+    top:5px;
+    right:5px;
+    display: block;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius:20px;
+}
+
+.gallery .home-title{
+    position: absolute;
+    bottom:0;
+    display: block;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    width:100%;
+}
+
 @media (max-width: 9000px) {
     .gallery {
-        width:20%;
+        width:25%;
+    }
+    .gallery .home-title{
+        font-size: 1.3vw;
+    }
+    .gallery .home-rate{
+        font-size: 1.3vw;
+    }
+}
+
+@media (max-width: 2000px) {
+    .gallery {
+        width:25%;
+    }
+    .gallery .home-title{
+        font-size: 1vw;
+    }
+    .gallery .home-rate{
+        font-size: 1vw;
+    }
+}
+
+@media (max-width: 900px) {
+    .gallery {
+        width:33.33%;
+    }
+    .gallery .home-title{
+        font-size: 1.8vw;
+    }
+    .gallery .rate{
+        font-size: 1.8vw;
     }
 }
 
 @media (max-width: 700px) {
     .gallery {
-        width:33.33%;
+        width:50%;
+    }
+
+    .gallery .home-title{
+        font-size: 2.2vw;
+    }
+
+    .gallery .home-rate{
+        font-size: 2.2vw;
     }
 }
 
-@media (max-width: 550px) {
+
+@media (max-width: 600px) {
     .gallery {
         width:50%;
     }
+
+    .gallery .home-title{
+      font-size: 2.5vw;
+    }
+
+    .gallery .home-rate{
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .gallery .home-title{
+        font-size: 4vw;
+    }
+
+    .gallery .home-rate{
+        font-size: 4vw;
+    }
+
 }
 
 .row h1{

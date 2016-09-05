@@ -3,7 +3,12 @@
       <div ng-repeat="image in movies" class="gallery">
           <a ng-href="#/app/movie/{{image.id}}">
             <img ng-src="{{image.medium_cover_image}}" width="100%" />
+              <span class="ion-ios-star home-rate"> {{image.rating}}</span>
+              <span class="home-title"> {{image.title}}</span>
           </a>
       </div>
+      <button class="button button-block button-balanced" ng-click="loadMore()" ng-show="loader == 'show'">
+          Load more
+      </button>
   </ion-content>
 </ion-view>

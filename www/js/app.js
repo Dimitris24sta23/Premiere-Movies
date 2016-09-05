@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var movieApp = angular.module('movieApp', ['ionic', 'starter.controllers','ngSanitize'])
+var movieApp = angular.module('movieApp', ['ionic', 'starter.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova'])
 
 movieApp.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,10 +19,25 @@ movieApp.run(function($ionicPlatform) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+
   });
 })
 
-movieApp.config(function($stateProvider, $urlRouterProvider) {
+movieApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
+
+  $ionicConfigProvider.scrolling.jsScrolling(false);
+
+    $ionicNativeTransitionsProvider.setDefaultTransition({
+        type: 'slide',
+        direction: 'left'
+    });
+
+    $ionicNativeTransitionsProvider.setDefaultBackTransition({
+        type: 'slide',
+        direction: 'right'
+    });
+
   $stateProvider
     .state('app', {
         url: '/app',
