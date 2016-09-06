@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var movieApp = angular.module('movieApp', ['ionic', 'starter.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova'])
+var premiere = angular.module('premiere', ['ionic', 'premiere.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova'])
 
-movieApp.run(function($ionicPlatform) {
+premiere.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -24,7 +24,7 @@ movieApp.run(function($ionicPlatform) {
   });
 })
 
-movieApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
+premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
 
   $ionicConfigProvider.scrolling.jsScrolling(false);
 
@@ -89,7 +89,8 @@ movieApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
           url: '/downloads',
           views: {
               'menuContent': {
-                  templateUrl: 'templates/downloads.html'
+                  templateUrl: 'templates/downloads.html',
+                  controller:'WebTorrent'
               }
           }
       })

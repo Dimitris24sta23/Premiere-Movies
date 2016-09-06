@@ -16,10 +16,18 @@
 
                   <div class="description">{{movie.description_intro}}</div>
                   <br>
-                  <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;" class="button button-full ion-android-download button-balanced">
-                      Download
-                  </a>
-                  <br>
+                  <div class="row responsive-sm">
+                      <div class="col col-50">
+                          <a href="#" onclick="window.open(youtubeLink, '_system', 'location=yes'); return false;" class="button button-full ion-social-youtube button-assertive">
+                              Trailer
+                          </a>
+                      </div>
+                      <div class="col col-50">
+                          <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;" class="button button-full ion-android-download button-balanced">
+                              Download
+                          </a>
+                      </div>
+                  </div>
                   <div class="list">
                       <div class="item item-divider" ng-if=" movie.cast">
                           <h2>Cast</h2>
