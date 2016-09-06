@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var premiere = angular.module('premiere', ['ionic', 'premiere.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova'])
+var premiere = angular.module('premiere', ['ionic', 'premiere.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova','ngRoute'])
 
 premiere.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -109,7 +109,16 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
           views: {
               'menuContent': {
                   templateUrl: 'templates/movie.html',
-                  controller: 'MovieDetails'
+                  controller: 'MovieDetails',
+                  resolve: {
+                      data: function ($q, $http, $routeParams) {
+                          var deferred = $q.defer();
+                          $http({method: 'GET', url: 'https://yts.ag/api/v2/movie_details.json', params: { movie_id: $routeParams.id, with_images: true, with_cast: true }}).then(function (data) {
+                              deferred.resolve(data);
+                          });
+                          return deferred.promise;
+                      }
+                  }
               }
           }
       })
