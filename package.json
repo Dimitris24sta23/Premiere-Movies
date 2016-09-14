@@ -21,7 +21,10 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-network-information",
+    "com.telerik.plugins.nativepagetransitions"
   ],
   "cordovaPlatforms": []
 }

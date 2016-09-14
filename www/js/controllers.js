@@ -70,22 +70,63 @@ angular.module('premiere.controllers', ['ngCordova'])
 })
 
 
-.controller('MovieDetails', function($scope, $stateParams, $http, $window, $ionicLoading) {
+.controller('MovieDetails', function($scope, $stateParams, $http, $window, $ionicLoading,$ionicModal) {
     $ionicLoading.show({
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
     });
     var productID = $stateParams.id;
+
     $scope.loadMovieDetails = function() {
         $http.get('https://yts.ag/api/v2/movie_details.json', {
             params: { movie_id: productID, with_images: true, with_cast: true }
         }).then(function(res){
             $scope.movie = res.data.data.movie;
             $scope.genres = $scope.movie.genres.join(", ");
-            $window.torrentLink =  $scope.movie.torrents[0].url;
             $window.youtubeLink =  "https://www.youtube.com/watch?v=" + $scope.movie.yt_trailer_code;
+            $scope.torrents = $scope.movie.torrents;
+            $scope.getTorrents();
             $ionicLoading.hide();
         });
-    }
+    };
+
+
+
+
+    $scope.getTorrents = function(){
+
+        $scope.quality = {
+            value: $scope.torrents[0].quality
+        };
+
+        $scope.torrents = $scope.torrents.sort(function(a, b) {
+            return a.quality - b.quality;
+        });
+
+        console.log($scope.torrents)
+    };
+
+
+    $scope.checkQuality = function(value) {
+        console.log(value)
+        if (value == '720p'){
+            $window.torrentLink =  $scope.movie.torrents[0].url;
+        } else {
+            $window.torrentLink =  $scope.movie.torrents[1].url;
+        }
+    };
+
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+        $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+    };
 
 
 })

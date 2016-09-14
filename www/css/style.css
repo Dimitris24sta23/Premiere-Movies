@@ -203,3 +203,19 @@ body.is-seed .show-leech {
     font-size: 17px;
     padding: 5px;
 }
+
+.item .badge{
+    right:55px;
+}
+
+.item-radio .radio-icon {
+    top: -4px;
+}
+
+.modal{
+    background: rgba(0, 0, 0, 0);
+}
+
+.modalclose{
+    margin-top: 0 !important;
+}

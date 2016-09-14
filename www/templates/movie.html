@@ -11,18 +11,24 @@
                   <h4>IMDB: {{movie.rating}}</h4>
                   <h5><span class="ion-archive"> Downloads: {{movie.download_count}}</span></h5>
                   <h5><span class="ion-thumbsup"> {{movie.like_count}}</span></h5>
-                  <h5><span class="ion-flag"> {{movie.language}}</span> / <span class="ion-ios-star"> {{movie.mpa_rating}}</span> </h5>
+                  <h5><span class="ion-flag"> {{movie.language}}</span> / <span class="ion-eye"> {{movie.mpa_rating}}</span> </h5>
 
 
                   <div class="description">{{movie.description_intro}}</div>
                   <br>
                   <div class="row responsive-sm">
-                      <div class="col col-50">
+                      <div class="col col-33">
                           <a href="#" onclick="window.open(youtubeLink, '_system', 'location=yes'); return false;" class="button button-full ion-social-youtube button-assertive">
                               Trailer
                           </a>
                       </div>
-                      <div class="col col-50">
+
+                      <div class="col col-33">
+                          <a ng-click="openModal()" class="button button-full ion-ios-monitor button-dark">
+                              {{quality.value}}
+                          </a>
+                      </div>
+                      <div class="col col-33">
                           <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;" class="button button-full ion-android-download button-balanced">
                               Download
                           </a>
@@ -41,6 +47,24 @@
                   </div>
               </div>
           </div>
+
+          <script id="my-modal.html" type="text/ng-template">
+              <ion-modal-view>
+                  <div class="bar bar-header bar-dark">
+                      <h1 class="title">Available movie qualities</h1>
+                  </div>
+                  <ion-content class="has-header">
+                      <ion-list>
+                          <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}" ng-model="quality.value" ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline" >
+                          </span>{{torrent.quality}} - {{torrent.size}}<span class="badge badge-balanced">Seeds: {{torrent.seeds}} /  Peers: {{torrent.peers}}</span>
+                          </ion-radio>
+                      </ion-list>
+                      <a ng-click="closeModal()" class="button button-full ion-android-checkmark-circle button-balanced modalclose">
+                          OK
+                      </a>
+                  </ion-content>
+              </ion-modal-view>
+          </script>
 
       </div>
   </ion-content>

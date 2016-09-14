@@ -26,9 +26,9 @@ premiere.run(function($ionicPlatform) {
 
 premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
 
-  $ionicConfigProvider.scrolling.jsScrolling(false);
+  //$ionicConfigProvider.scrolling.jsScrolling(false);
 
-    $ionicNativeTransitionsProvider.setDefaultOptions({
+    /*$ionicNativeTransitionsProvider.setDefaultOptions({
         //duration: 400, // in milliseconds (ms), default 400,
         //slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
         //iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
@@ -48,7 +48,7 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
     $ionicNativeTransitionsProvider.setDefaultBackTransition({
         type: 'slide',
         direction: 'right'
-    });
+    });*/
 
   $stateProvider
     .state('app', {
