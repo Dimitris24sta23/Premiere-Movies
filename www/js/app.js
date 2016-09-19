@@ -24,11 +24,11 @@ premiere.run(function($ionicPlatform) {
   });
 })
 
-premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
+premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$ionicNativeTransitionsProvider) {
 
-  //$ionicConfigProvider.scrolling.jsScrolling(false);
+  $ionicConfigProvider.scrolling.jsScrolling(true);
 
-    /*$ionicNativeTransitionsProvider.setDefaultOptions({
+    $ionicNativeTransitionsProvider.setDefaultOptions({
         //duration: 400, // in milliseconds (ms), default 400,
         //slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
         //iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
@@ -37,7 +37,7 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
         //fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
         //fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
         //triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
-        backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+        //backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
     });
 
     $ionicNativeTransitionsProvider.setDefaultTransition({
@@ -48,7 +48,7 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
     $ionicNativeTransitionsProvider.setDefaultBackTransition({
         type: 'slide',
         direction: 'right'
-    });*/
+    });
 
   $stateProvider
     .state('app', {
@@ -89,8 +89,7 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
           url: '/downloads',
           views: {
               'menuContent': {
-                  templateUrl: 'templates/downloads.html',
-                  controller:'WebTorrent'
+                  templateUrl: 'templates/downloads.html'
               }
           }
       })
@@ -111,12 +110,11 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
                   templateUrl: 'templates/movie.html',
                   controller: 'MovieDetails',
                   resolve: {
-                      data: function ($q, $http, $routeParams) {
-                          var deferred = $q.defer();
-                          $http({method: 'GET', url: 'https://yts.ag/api/v2/movie_details.json', params: { movie_id: $routeParams.id, with_images: true, with_cast: true }}).then(function (data) {
-                              deferred.resolve(data);
+                      movie: function ($stateParams,GetMovie,$ionicLoading) {
+                          $ionicLoading.show({
+                              template: '<p>Loading...</p><ion-spinner></ion-spinner>'
                           });
-                          return deferred.promise;
+                          return GetMovie.getMovie($stateParams.id)
                       }
                   }
               }

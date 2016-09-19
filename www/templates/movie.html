@@ -1,4 +1,4 @@
-<ion-view ng-init="loadMovieDetails()" ng-cloak>
+<ion-view ng-cloak>
     <ion-nav-title>{{movie.title_long}}</ion-nav-title>
   <ion-content style="background: url('{{movie.background_image_original}}'); background-size: cover;">
       <div class="row responsive-sm">
@@ -45,7 +45,24 @@
                       </a>
 
                   </div>
+                  <div class="list subs">
+                      <div class="item item-divider" ng-show="subs_gr.length > 0">
+                          <h2>Greek Subtitles</h2>
+                      </div>
+                      <a class="item item-icon-left" ng-repeat="sub in subs_gr | limitTo: 5" ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
+                          <i class="icon ion-chatbubble-working"></i>
+                          {{movie.title_english}}_{{$index +1 }} - (Greek)
+                      </a>
+                      <div class="item item-divider" ng-show="subs_en.length > 0">
+                          <h2>English Subtitles</h2>
+                      </div>
+                      <a class="item item-icon-left" ng-repeat="sub in subs_en | limitTo: 5" ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
+                          <i class="icon ion-chatbubble-working"></i>
+                          {{movie.title_english}}_{{$index +1 }} - (English)
+                      </a>
+                  </div>
               </div>
+
           </div>
 
           <script id="my-modal.html" type="text/ng-template">
@@ -55,7 +72,7 @@
                   </div>
                   <ion-content class="has-header">
                       <ion-list>
-                          <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}" ng-model="quality.value" ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline" >
+                          <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}" ng-model="quality.value" ng-init="checkQuality(quality.value)" ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline" >
                           </span>{{torrent.quality}} - {{torrent.size}}<span class="badge badge-balanced">Seeds: {{torrent.seeds}} /  Peers: {{torrent.peers}}</span>
                           </ion-radio>
                       </ion-list>

@@ -1,4 +1,18 @@
 <ion-view view-title="Movies">
+    <ion-nav-bar class="bar-dark">
+
+
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-ios-list-outline" ng-click="openCatModal()">
+                Categories
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
   <ion-content ng-init="loadImages()">
       <div ng-repeat="image in movies" class="gallery">
           <a ng-href="#/app/movie/{{image.id}}">
@@ -10,5 +24,21 @@
       <button class="button button-block button-balanced" ng-click="loadMore()" ng-show="loader == 'show'">
           Load more
       </button>
+
+      <script id="categories-modal.html" type="text/ng-template">
+          <ion-modal-view>
+              <div class="bar bar-header bar-dark">
+                  <h1 class="title">Select a category</h1>
+              </div>
+              <ion-content class="has-header">
+                  <ion-list ng-controller="GenreController">
+                      <ion-radio ng-model="choice" ng-value="'A'" ng-repeat="cat in genres">{{cat}}</ion-radio>
+                  </ion-list>
+                  <a ng-click="closeCatModal()" class="button button-full ion-android-checkmark-circle button-balanced modalclose">
+                      OK
+                  </a>
+              </ion-content>
+          </ion-modal-view>
+      </script>
   </ion-content>
 </ion-view>

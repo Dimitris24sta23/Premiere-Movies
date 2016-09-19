@@ -219,3 +219,7 @@ body.is-seed .show-leech {
 .modalclose{
     margin-top: 0 !important;
 }
+
+.subs a{
+    color: #fff !important;
+}
