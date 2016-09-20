@@ -1,6 +1,6 @@
 angular.module('premiere.controllers', ['ngCordova'])
 
-.controller('AppCtrl', function($scope, $location, $http, $ionicLoading, $cordovaNetwork, $ionicPopup, $rootScope, $ionicModal) {
+.controller('AppCtrl', function($scope, $location, $http, $ionicLoading, $cordovaNetwork, $ionicPopup, $rootScope, $ionicModal, $ionicScrollDelegate) {
 
     document.addEventListener("deviceready", function () {
 
@@ -33,6 +33,9 @@ angular.module('premiere.controllers', ['ngCordova'])
 
     $scope.nextPage = 2;
 
+    $scope.headeTitle = "";
+    $scope.searchData = {};
+
     $ionicLoading.show({
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
     });
@@ -57,9 +60,9 @@ angular.module('premiere.controllers', ['ngCordova'])
         $ionicLoading.show({
             template: '<p>Loading...</p><ion-spinner></ion-spinner>'
         });
-        $http.get("https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year&page=" + $scope.nextPage)
+        $http.get("https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year&page=" + $scope.nextPage + "&genre=" + $scope.headeTitle)
             .then(function(more){
-                $scope.movies = more.data.data.movies;
+                $scope.movies = $scope.movies.concat(more.data.data.movies);
                 $ionicLoading.hide();
                 $scope.nextPage += 1;
             });
@@ -79,6 +82,55 @@ angular.module('premiere.controllers', ['ngCordova'])
         $scope.modal.hide();
     };
 
+    $ionicModal.fromTemplateUrl('search-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modalSearch = modal;
+    });
+    $scope.openSearchModal = function() {
+        $scope.modalSearch.show();
+    };
+    $scope.closeSearchModal = function() {
+        $scope.modalSearch.hide();
+    };
+
+    $scope.selectCategory = function(category){
+        if (category == "Latest"){
+            $scope.headeTitle = "Latest";
+            category = "";
+        }
+        $scope.headeTitle = category;
+        $scope.closeCatModal();
+        $ionicScrollDelegate.scrollTop();
+        $ionicLoading.show({
+            template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        });
+        $http.get('https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year&page=1&genre='+category)
+            .then(function(res){
+                $scope.movies = res.data.data.movies;
+                $ionicLoading.hide();
+                $scope.loader = "show";
+            });
+        $scope.nextPage = 2;
+    };
+
+
+    $scope.searchMovie = function(){
+        $scope.closeSearchModal();
+        $ionicScrollDelegate.scrollTop();
+        $scope.headeTitle = $scope.searchData.value;
+        $ionicLoading.show({
+            template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        });
+        $http.get('https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year$&query_term='+$scope.searchData.value)
+            .then(function(res){
+                $scope.movies = res.data.data.movies;
+                $ionicLoading.hide();
+                $scope.loader = "hide";
+            });
+        $scope.nextPage = 2;
+    };
 
 })
 
@@ -101,7 +153,7 @@ angular.module('premiere.controllers', ['ngCordova'])
     };
 }])
 
-.controller('GenreController', function($scope) {
+.controller('GenreController', function($scope,$ionicLoading,$http) {
     $scope.genres = [
         //"Popular",
         "Action",
@@ -127,6 +179,7 @@ angular.module('premiere.controllers', ['ngCordova'])
         "War",
         "Western"
     ]
+
 })
 
 

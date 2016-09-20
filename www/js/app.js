@@ -26,7 +26,7 @@ premiere.run(function($ionicPlatform) {
 
 premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$ionicNativeTransitionsProvider) {
 
-  $ionicConfigProvider.scrolling.jsScrolling(true);
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 
     $ionicNativeTransitionsProvider.setDefaultOptions({
         //duration: 400, // in milliseconds (ms), default 400,

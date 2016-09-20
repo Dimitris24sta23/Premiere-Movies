@@ -1,4 +1,4 @@
-<ion-view view-title="Movies">
+<ion-view view-title="{{headeTitle}} Movies">
     <ion-nav-bar class="bar-dark">
 
 
@@ -8,13 +8,13 @@
         </ion-nav-buttons>
 
         <ion-nav-buttons side="right">
-            <button class="button button-icon button-clear ion-ios-list-outline" ng-click="openCatModal()">
-                Categories
-            </button>
+            <button class="button button-icon button-clear ion-ios-search" ng-click="openSearchModal()"></button>
+            <button class="button button-icon button-clear ion-ios-list-outline" ng-click="openCatModal()"></button>
+
         </ion-nav-buttons>
     </ion-nav-bar>
   <ion-content ng-init="loadImages()">
-      <div ng-repeat="image in movies" class="gallery">
+      <div ng-repeat="image in movies track by $index" class="gallery">
           <a ng-href="#/app/movie/{{image.id}}">
             <img ng-src="{{image.medium_cover_image}}" width="100%" />
               <span class="ion-ios-star home-rate"> {{image.rating}}</span>
@@ -32,11 +32,26 @@
               </div>
               <ion-content class="has-header">
                   <ion-list ng-controller="GenreController">
-                      <ion-radio ng-model="choice" ng-value="'A'" ng-repeat="cat in genres">{{cat}}</ion-radio>
+                      <ion-radio ng-model="category" value="Latest" ng-change="selectCategory('Latest')">Latest</ion-radio>
+                      <ion-radio ng-repeat="cat in genres" ng-model="$parent.category" value="{{cat}}" ng-change="selectCategory(cat)">{{cat}}</ion-radio>
                   </ion-list>
-                  <a ng-click="closeCatModal()" class="button button-full ion-android-checkmark-circle button-balanced modalclose">
-                      OK
-                  </a>
+              </ion-content>
+          </ion-modal-view>
+      </script>
+
+      <script id="search-modal.html" type="text/ng-template">
+          <ion-modal-view>
+              <div class="bar bar-header bar-dark">
+                  <h1 class="title">Search for a movie</h1>
+              </div>
+              <ion-content class="has-header">
+                  <ion-list>
+                      <label class="item item-input">
+                          <form ng-submit="searchMovie()">
+                            <input type="text" placeholder="Type and press enter" ng-model="searchData.value">
+                          </form>
+                      </label>
+                  </ion-list>
               </ion-content>
           </ion-modal-view>
       </script>
