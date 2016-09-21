@@ -16,7 +16,7 @@
   <ion-content ng-init="loadImages()">
       <div ng-repeat="image in movies track by $index" class="gallery">
           <a ng-href="#/app/movie/{{image.id}}">
-            <img ng-src="{{image.medium_cover_image}}" width="100%" />
+            <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>
               <span class="ion-ios-star home-rate"> {{image.rating}}</span>
               <span class="home-title"> {{image.title}}</span>
           </a>
