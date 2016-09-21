@@ -1,6 +1,6 @@
 /* Empty. Add your own CSS if you like */
 
-body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,input, button, select, textarea{
     font-family: 'Cairo', sans-serif;
 }
 
@@ -120,6 +120,14 @@ a.item,
         font-size: 3vw;
     }
 
+    h1{
+        font-size: 9vw;
+    }
+
+    h2{
+        font-size: 7vw;
+    }
+
 }
 
 .row h1{
@@ -217,4 +225,27 @@ body.is-seed .show-leech {
 
 textarea, input{
     color: #fff !important;
+}
+
+
+.gallery{
+    /*transition effects */
+    -webkit-transition: -webkit-transform 0.6s;
+    -moz-transition: -moz-transform 0.6s;
+    -o-transition: -o-transform 0.6s;
+    transition: transform 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.ripple:focus{
+    animation: mymove 1s;
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    0%   {opacity: 0.3}
+    100% {opacity: 1}
 }
