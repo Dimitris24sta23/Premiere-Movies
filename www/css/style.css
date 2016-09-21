@@ -1,5 +1,10 @@
 /* Empty. Add your own CSS if you like */
 
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: 'Cairo', sans-serif;
+}
+
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -29,7 +34,6 @@ a.item,
 
 .gallery {
     float: left;
-    line-height: 0;
     position: relative;
 }
 
@@ -52,11 +56,17 @@ a.item,
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
     width:100%;
+    text-overflow: ellipsis;
+
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 0;
 }
 
 @media (max-width: 9000px) {
     .gallery {
-        width:25%;
+        width:15%;
     }
     .gallery .home-title{
         font-size: 1.3vw;
@@ -68,31 +78,21 @@ a.item,
 
 @media (max-width: 2000px) {
     .gallery {
-        width:25%;
+        width:20%;
     }
     .gallery .home-title{
-        font-size: 1vw;
+        font-size: 1.2vw;
     }
     .gallery .home-rate{
-        font-size: 1vw;
+        font-size: 1.2vw;
     }
 }
 
-@media (max-width: 900px) {
-    .gallery {
-        width:33.33%;
-    }
-    .gallery .home-title{
-        font-size: 1.8vw;
-    }
-    .gallery .rate{
-        font-size: 1.8vw;
-    }
-}
+
 
 @media (max-width: 700px) {
     .gallery {
-        width:50%;
+        width:25%;
     }
 
     .gallery .home-title{
@@ -105,28 +105,19 @@ a.item,
 }
 
 
-@media (max-width: 600px) {
+
+@media (max-width: 425px) {
+
     .gallery {
         width:50%;
     }
 
     .gallery .home-title{
-      font-size: 2.5vw;
+        font-size: 3vw;
     }
 
     .gallery .home-rate{
-        font-size: 2.5vw;
-    }
-}
-
-@media (max-width: 320px) {
-
-    .gallery .home-title{
-        font-size: 4vw;
-    }
-
-    .gallery .home-rate{
-        font-size: 4vw;
+        font-size: 3vw;
     }
 
 }
