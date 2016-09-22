@@ -241,6 +241,88 @@ angular.module('premiere.controllers', ['ngCordova'])
         window.open(url, '_system', 'location=yes'); return false;
     }
 
+    $scope.watchlistData = JSON.parse(window.localStorage.getItem("watchlist"));
+
+    $scope.activeWishBtn = function(){
+        $scope.classWishBtn = "button-balanced";
+        $scope.watchlistText = "Remove from watchlist";
+        $scope.wishIcon = "ion-ios-minus-outline";
+    };
+
+    $scope.inactiveWishBtn = function(){
+        $scope.classWishBtn = "button-dark";
+        $scope.watchlistText = "Add to watchlist";
+        $scope.wishIcon = "ion-ios-plus-outline";
+    };
+
+    $scope.watchlist = function(){
+
+        var watchlist_item = {
+            "id": $scope.movie.id,
+            "title": $scope.movie.title,
+            "imdb" : $scope.movie.rating,
+            "poster" : $scope.movie.medium_cover_image
+        };
+
+        if (window.localStorage.getItem("watchlist") === null) {
+
+            var watchlist = {
+                data : []
+            };
+
+            watchlist.data.push(watchlist_item);
+
+            window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
+            $scope.inactiveWishBtn();
+            //console.log(watchlist);
+
+        } else {
+
+            if ($scope.watchlistData.data.some(function(item) { return item.id === $scope.movie.id })) {
+                //alert("Exists!")
+
+                for (i in $scope.watchlistData.data){
+                    console.log($scope.watchlistData.data[i]);
+                    if ($scope.watchlistData.data[i].id == $scope.movie.id){
+                       var position = i;
+                    }
+                }
+
+                $scope.watchlistData.data.splice(position, 1);
+                window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
+
+                $scope.inactiveWishBtn();
+            } else {
+                //alert("not exists");
+                $scope.activeWishBtn();
+                $scope.watchlistData.data.push(watchlist_item);
+                //console.log(watchlist);
+                window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
+            }
+
+        }
+
+    };
+
+
+
+    if (window.localStorage.getItem("watchlist") === null) {
+
+        $scope.inactiveWishBtn();
+
+    } else {
+
+        if ($scope.watchlistData.data.some(function (item) {
+                return item.id === $scope.movie.id
+            })) {
+            $scope.activeWishBtn();
+            //alert("Exists!")
+        } else {
+            //alert("not exists");
+            $scope.inactiveWishBtn();
+
+        }
+    }
 
 })
 
