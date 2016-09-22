@@ -1,0 +1,12 @@
+<ion-view view-title="Watchlist">
+  <ion-content>
+      <div ng-repeat="image in wishlist" class="gallery"  class="has-header">
+          <a ng-href="#/app/movie/{{image.id}}">
+              <img src="img/placeholder.jpg" ng-src="{{image.poster}}" width="100%"/>
+              <span class="ion-ios-star home-rate"> {{image.imdb}}</span>
+              <span class="home-title"> {{image.title}}</span>
+          </a>
+      </div>
+
+  </ion-content>
+</ion-view>

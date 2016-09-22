@@ -35,6 +35,7 @@ a.item,
 .gallery {
     float: left;
     position: relative;
+    line-height: 0;
 }
 
 .gallery .home-rate{
@@ -50,7 +51,7 @@ a.item,
 
 .gallery .home-title{
     position: absolute;
-    bottom:0;
+    bottom:0px;
     display: block;
     padding: 15px;
     background: rgba(0, 0, 0, 0.8);
@@ -225,27 +226,4 @@ body.is-seed .show-leech {
 
 textarea, input{
     color: #fff !important;
-}
-
-
-.gallery{
-    /*transition effects */
-    -webkit-transition: -webkit-transform 0.6s;
-    -moz-transition: -moz-transform 0.6s;
-    -o-transition: -o-transform 0.6s;
-    transition: transform 0.6s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
-
-.ripple:focus{
-    animation: mymove 1s;
-}
-
-/* Standard syntax */
-@keyframes mymove {
-    0%   {opacity: 0.3}
-    100% {opacity: 1}
 }

@@ -76,11 +76,13 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
           }
       })
 
-      .state('app.favorites', {
-          url: '/favorites',
+      .state('app.watchlist', {
+          cache: false,
+          url: '/watchlist',
           views: {
               'menuContent': {
-                  templateUrl: 'templates/favorites.html'
+                  templateUrl: 'templates/watchlist.html',
+                  controller: 'WatchList'
               }
           }
       })

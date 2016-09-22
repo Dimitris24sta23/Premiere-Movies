@@ -327,6 +327,16 @@ angular.module('premiere.controllers', ['ngCordova'])
 })
 
 
+.controller('WatchList', function($scope,$ionicLoading) {
+
+        $scope.wishlist = JSON.parse(window.localStorage.getItem("watchlist"));
+
+        $scope.wishlist = $scope.wishlist.data;
+        $ionicLoading.hide();
+    
+})
+
+
 .filter('hrefToJS', function ($sce, $sanitize) {
     return function (text) {
         var regex = /href="([\S]+)"/g;
