@@ -1,6 +1,4 @@
-angular.module('premiere.controllers', ['ngCordova'])
-
-.controller('AppCtrl', function($scope, $location, $http, $ionicLoading, $cordovaNetwork, $ionicPopup, $rootScope, $ionicModal, $ionicScrollDelegate) {
+premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoading, $cordovaNetwork, $ionicPopup, $rootScope, $ionicModal, $ionicScrollDelegate) {
 
     document.addEventListener("deviceready", function () {
 
@@ -49,12 +47,16 @@ angular.module('premiere.controllers', ['ngCordova'])
     $scope.loadImages = function() {
         $http.get('https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year')
             .then(function(res){
-                $scope.movies = res.data.data.movies;
-                $ionicLoading.hide();
-                $scope.loader = "show";
+                if (res.data.data.movies != undefined) {
+                    $scope.movies = res.data.data.movies;
+                    $ionicLoading.hide();
+                    $scope.loader = "show";
+                } else {
+                    $scope.loader = "hide";
+                }
             });
 
-    }
+    };
 
     $scope.loadMore = function() {
         $ionicLoading.show({
@@ -62,12 +64,19 @@ angular.module('premiere.controllers', ['ngCordova'])
         });
         $http.get("https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year&page=" + $scope.nextPage + "&genre=" + $scope.headeTitle)
             .then(function(more){
-                $scope.movies = $scope.movies.concat(more.data.data.movies);
-                $ionicLoading.hide();
-                $scope.nextPage += 1;
+                if (more.data.data.movies != undefined) {
+                    $scope.movies = $scope.movies.concat(more.data.data.movies);
+                    $ionicLoading.hide();
+                    $scope.nextPage += 1;
+                } else {
+                    $ionicLoading.hide();
+                    $scope.loader = "hide";
+                }
+
+
             });
 
-    }
+    };
 
     $ionicModal.fromTemplateUrl('categories-modal.html', {
         scope: $scope,
@@ -125,65 +134,27 @@ angular.module('premiere.controllers', ['ngCordova'])
         });
         $http.get('https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year$&query_term='+$scope.searchData.value)
             .then(function(res){
-                $scope.movies = res.data.data.movies;
-                $ionicLoading.hide();
-                $scope.loader = "hide";
+
+                if (res.data.data.movies != undefined) {
+                    $scope.noSearchResults = false;
+                    $scope.movies = res.data.data.movies;
+                    $ionicLoading.hide();
+                    $scope.loader = "hide";
+                } else {
+                    $scope.movies = "";
+                    $scope.noSearchResults = true;
+                    $ionicLoading.hide();
+                    $scope.loader = "hide";
+                }
+
             });
         $scope.nextPage = 2;
     };
 
-})
+});
 
 
-.factory('GetMovie', ['$http', function($http){
-    return {
-        getMovie: function(id) {
-            return $http.get('https://yts.ag/api/v2/movie_details.json', {
-                params: { movie_id: id, with_images: true, with_cast: true }})
-        }
-    };
-}])
-
-.factory('GetSubs', ['$http', function($http){
-    return {
-        getSubs: function(imdb) {
-            return $http.get('http://api.yifysubtitles.com/subs/'+ imdb);
-            //return $http.get('js/subs.json');
-        }
-    };
-}])
-
-.controller('GenreController', function($scope,$ionicLoading,$http) {
-    $scope.genres = [
-        //"Popular",
-        "Action",
-        "Adventure",
-        "Animation",
-        "Biography",
-        "Comedy",
-        "Crime",
-        "Documentary",
-        "Drama",
-        "Family",
-        "Fantasy",
-        "Film-Noir",
-        "History",
-        "Horror",
-        "Music",
-        "Musical",
-        "Mystery",
-        "Romance",
-        "Sci-Fi",
-        "Sport",
-        "Thriller",
-        "War",
-        "Western"
-    ]
-
-})
-
-
-.controller('MovieDetails', function($scope, $stateParams, $http, $window, $ionicLoading, $ionicModal, movie, GetSubs) {
+premiereApp.controller('MovieDetails', function($scope, $stateParams, $http, $window, $ionicLoading, $ionicModal, movie, GetSubs, GetSuggestions) {
 
     $scope.movie = movie.data.data.movie;
     $scope.genres = $scope.movie.genres.join(", ");
@@ -239,9 +210,8 @@ angular.module('premiere.controllers', ['ngCordova'])
 
     $scope.openurl = function(url){
         window.open(url, '_system', 'location=yes'); return false;
-    }
+    };
 
-    $scope.watchlistData = JSON.parse(window.localStorage.getItem("watchlist"));
 
     $scope.activeWishBtn = function(){
         $scope.classWishBtn = "button-balanced";
@@ -255,6 +225,8 @@ angular.module('premiere.controllers', ['ngCordova'])
         $scope.wishIcon = "ion-ios-plus-outline";
     };
 
+    $scope.watchlistData = JSON.parse(window.localStorage.getItem("watchlist"));
+
     $scope.watchlist = function(){
 
         var watchlist_item = {
@@ -264,46 +236,29 @@ angular.module('premiere.controllers', ['ngCordova'])
             "poster" : $scope.movie.medium_cover_image
         };
 
-        if (window.localStorage.getItem("watchlist") === null) {
+        if ($scope.watchlistData.data.some(function(item) { return item.id === $scope.movie.id })) {
+            //alert("Exists!")
 
-            var watchlist = {
-                data : []
-            };
-
-            watchlist.data.push(watchlist_item);
-
-            window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
-            $scope.inactiveWishBtn();
-            //console.log(watchlist);
-
-        } else {
-
-            if ($scope.watchlistData.data.some(function(item) { return item.id === $scope.movie.id })) {
-                //alert("Exists!")
-
-                for (i in $scope.watchlistData.data){
-                    console.log($scope.watchlistData.data[i]);
-                    if ($scope.watchlistData.data[i].id == $scope.movie.id){
-                       var position = i;
-                    }
+            for (i in $scope.watchlistData.data){
+                console.log($scope.watchlistData.data[i]);
+                if ($scope.watchlistData.data[i].id == $scope.movie.id){
+                   var position = i;
                 }
-
-                $scope.watchlistData.data.splice(position, 1);
-                window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
-
-                $scope.inactiveWishBtn();
-            } else {
-                //alert("not exists");
-                $scope.activeWishBtn();
-                $scope.watchlistData.data.push(watchlist_item);
-                //console.log(watchlist);
-                window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
             }
 
+            $scope.watchlistData.data.splice(position, 1);
+            window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
+
+            $scope.inactiveWishBtn();
+        } else {
+            //alert("not exists");
+            $scope.activeWishBtn();
+            $scope.watchlistData.data.push(watchlist_item);
+            //console.log(watchlist);
+            window.localStorage.setItem('watchlist',JSON.stringify($scope.watchlistData));
         }
 
     };
-
 
 
     if (window.localStorage.getItem("watchlist") === null) {
@@ -324,25 +279,59 @@ angular.module('premiere.controllers', ['ngCordova'])
         }
     }
 
-})
 
-
-.controller('WatchList', function($scope,$ionicLoading) {
-
-        $scope.wishlist = JSON.parse(window.localStorage.getItem("watchlist"));
-
-        $scope.wishlist = $scope.wishlist.data;
+    GetSuggestions.getSuggestions($scope.movie.id).success(function (suggestions) {
+        $scope.Suggestions = suggestions.data.movies;
         $ionicLoading.hide();
-    
-})
+    });
 
 
-.filter('hrefToJS', function ($sce, $sanitize) {
-    return function (text) {
-        var regex = /href="([\S]+)"/g;
-        var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"");
-        return $sce.trustAsHtml(newString);
+
+});
+
+
+premiereApp.controller('WatchList', function($scope,$ionicLoading) {
+
+    $scope.wishlist = JSON.parse(window.localStorage.getItem("watchlist"));
+
+    $scope.wishlist = $scope.wishlist.data;
+
+    if ($scope.wishlist.length == 0) {
+        $scope.no_results = true;
     }
-})
+
+    $ionicLoading.hide();
+    
+});
+
+
+premiereApp.controller('GenreController', function($scope) {
+    $scope.genres = [
+        //"Popular",
+        "Action",
+        "Adventure",
+        "Animation",
+        "Biography",
+        "Comedy",
+        "Crime",
+        "Documentary",
+        "Drama",
+        "Family",
+        "Fantasy",
+        "Film-Noir",
+        "History",
+        "Horror",
+        "Music",
+        "Musical",
+        "Mystery",
+        "Romance",
+        "Sci-Fi",
+        "Sport",
+        "Thriller",
+        "War",
+        "Western"
+    ]
+
+});
 
 

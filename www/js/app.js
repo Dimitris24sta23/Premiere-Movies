@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var premiere = angular.module('premiere', ['ionic', 'premiere.controllers','ngSanitize','ngTouch','ionic-native-transitions','ngCordova','ngRoute'])
+var premiereApp = angular.module('premiere', ['ionic', 'ngSanitize','ngTouch','ionic-native-transitions','ngCordova','ngRoute'])
 
-premiere.run(function($ionicPlatform) {
+premiereApp.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,9 +22,20 @@ premiere.run(function($ionicPlatform) {
 
 
   });
-})
 
-premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$ionicNativeTransitionsProvider) {
+
+    // Initiate Watchlist in localstorage
+    if (window.localStorage.getItem("watchlist") === null) {
+        var watchlist = {
+            data : []
+        };
+
+        window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    }
+
+});
+
+premiereApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$ionicNativeTransitionsProvider) {
 
   $ionicConfigProvider.scrolling.jsScrolling(false);
 
@@ -106,6 +117,7 @@ premiere.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvide
       })
 
       .state('app.movie', {
+          cache: false,
           url: '/movie/:id',
           views: {
               'menuContent': {

@@ -1,16 +1,34 @@
-/**
- * Created by dimit_000 on 3/9/2016.
- */
-
-// movie service
-fastApp.factory('GetMovie', ['$http', function($http){
-
-    var urlBase = 'https://yts.ag/api/v2/movie_details.json';
-    var GetResults = {};
-
-    GetResults.getProducts = function (searchQuery) {
-        return $http.get(urlBase+'/results.json?query=' + searchQuery);
+premiereApp.factory('GetMovie', ['$http', function($http){
+    return {
+        getMovie: function(id) {
+            return $http.get('https://yts.ag/api/v2/movie_details.json', {
+                params: { movie_id: id, with_images: true, with_cast: true }})
+        }
     };
-
-    return GetResults;
 }]);
+
+premiereApp.factory('GetSuggestions', ['$http', function($http){
+    return {
+        getSuggestions: function(id) {
+            return $http.get('https://yts.ag/api/v2/movie_suggestions.json', {
+                params: { movie_id: id }})
+        }
+    };
+}]);
+
+premiereApp.factory('GetSubs', ['$http', function($http){
+    return {
+        getSubs: function(imdb) {
+            return $http.get('http://api.yifysubtitles.com/subs/'+ imdb);
+            //return $http.get('js/subs.json');
+        }
+    };
+}]);
+
+premiereApp.filter('hrefToJS', function ($sce, $sanitize) {
+    return function (text) {
+        var regex = /href="([\S]+)"/g;
+        var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_blank', 'location=yes')\"");
+        return $sce.trustAsHtml(newString);
+    }
+});
