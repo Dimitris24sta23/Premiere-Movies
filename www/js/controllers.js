@@ -286,6 +286,44 @@ premiereApp.controller('MovieDetails', function($scope, $stateParams, $http, $wi
     });
 
 
+    $ionicModal.fromTemplateUrl('screenshots.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modalScreen = modal;
+    });
+    $scope.openScreenshotModal = function() {
+        $scope.modalScreen.show();
+    };
+    $scope.closeScreenshotModal = function() {
+        $scope.modalScreen.hide();
+    };
+
+    $scope.options = {
+        loop: false,
+        effect: 'fade',
+        speed: 500
+    }
+    $scope.data = {};
+    $scope.$watch('data.slider', function(nv, ov) {
+        $scope.slider = $scope.data.slider;
+    })
+
+    $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
+        // data.slider is the instance of Swiper
+        $scope.slider = data.slider;
+    });
+
+    $scope.$on("$ionicSlides.slideChangeStart", function(event, data){
+        console.log('Slide change is beginning');
+    });
+
+    $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
+        // note: the indexes are 0-based
+        $scope.activeIndex = data.activeIndex;
+        $scope.previousIndex = data.previousIndex;
+    });
+
 
 });
 

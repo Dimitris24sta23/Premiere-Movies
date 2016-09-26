@@ -39,6 +39,7 @@
                               Download
                           </a>
                       </div>
+
                   </div>
                   <div class="list">
                       <div class="item item-divider" ng-if=" movie.cast">
@@ -51,6 +52,12 @@
                       </a>
 
                   </div>
+
+                  <a ng-click="openScreenshotModal()" class="button button-full ion-images button-positive">
+                      Screenshots
+                  </a>
+
+
                   <div class="list subs">
                       <div class="item item-divider" ng-show="subs_gr.length > 0">
                           <h2>Greek Subtitles</h2>
@@ -86,12 +93,34 @@
 
 
 
+          <script id="screenshots.html" type="text/ng-template">
+              <ion-modal-view>
+                  <div class="bar bar-header bar-dark">
+                      <h1 class="title">Screenshots</h1>
+                  </div>
+                  <ion-content class="has-header" scroll="false">
+                      <ion-slides options="options" slider="data.slider" class="slider">
+                          <ion-slide-page>
+                              <img src="{{movie.large_screenshot_image1}}" class="image"/>
+                          </ion-slide-page>
+                          <ion-slide-page>
+                              <img src="{{movie.large_screenshot_image2}}" class="image" />
+                          </ion-slide-page>
+                          <ion-slide-page>
+                              <img src="{{movie.large_screenshot_image3}}" class="image"/>
+                          </ion-slide-page>
+                      </ion-slides>
+                  </ion-content>
+              </ion-modal-view>
+          </script>
+
+
           <script id="my-modal.html" type="text/ng-template">
               <ion-modal-view>
                   <div class="bar bar-header bar-dark">
                       <h1 class="title">Available movie qualities</h1>
                   </div>
-                  <ion-content class="has-header">
+                  <ion-content class="has-header" scroll="false">
                       <ion-list>
                           <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}" ng-model="quality.value" ng-init="checkQuality(quality.value)" ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline" >
                           </span>{{torrent.quality}} - {{torrent.size}}<span class="badge badge-balanced">Seeds: {{torrent.seeds}} /  Peers: {{torrent.peers}}</span>
