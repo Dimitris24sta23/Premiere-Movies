@@ -13,7 +13,7 @@
 
         </ion-nav-buttons>
     </ion-nav-bar>
-  <ion-content ng-init="loadImages()">
+  <ion-content ng-init="loadMovies()">
       <div ng-repeat="image in movies track by $index" class="gallery ripple">
           <a ng-href="#/app/movie/{{image.id}}">
               <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>

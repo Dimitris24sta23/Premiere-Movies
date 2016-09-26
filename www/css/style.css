@@ -308,3 +308,12 @@ textarea, input{
     top:40%;
     line-height: normal;
 }
+
+.imdb img{
+    float: left;
+}
+
+.imdb span{
+    float: left;
+    margin:-1px 0 0 10px;
+}

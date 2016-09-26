@@ -13,7 +13,8 @@
                   <h1>{{movie.title_english}} <span class="runtime">({{movie.runtime}}')</span></h1>
                   <h5>{{genres}}</h5>
                   <h2>{{movie.year}}</h2>
-                  <h4>IMDB: {{movie.rating}}</h4>
+                  <h4 class="imdb"><a ng-click="openurl(movie.imdb_code,'http://www.imdb.com/title/')"><img ng-src="https://yts.ag/assets/images/website/logo-imdb.svg" /></a> <span>{{movie.rating}}</span></h4>
+                  <div style="clear: both"></div>
                   <h5><span class="ion-archive"> Downloads: {{movie.download_count}}</span></h5>
                   <h5><span class="ion-thumbsup"> {{movie.like_count}}</span></h5>
                   <h5><span class="ion-flag"> {{movie.language}}</span> / <span class="ion-eye"> {{movie.mpa_rating}}</span> </h5>
@@ -43,7 +44,7 @@
                       <div class="item item-divider" ng-if=" movie.cast">
                           <h2>Cast</h2>
                       </div>
-                      <a class="item item-avatar" ng-repeat="cast in movie.cast">
+                      <a class="item item-avatar" ng-repeat="cast in movie.cast" ng-click="openurl(cast.imdb_code,'http://www.imdb.com/name/nm')">
                           <img ng-src="{{ cast.url_small_image || 'https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif' }}">
                           <h2>{{cast.name}}</h2>
                           <p>{{cast.character_name}}</p>

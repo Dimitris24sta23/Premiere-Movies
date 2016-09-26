@@ -2,14 +2,14 @@ premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoadi
 
     document.addEventListener("deviceready", function () {
 
-        var isOnline = $cordovaNetwork.isOnline();
+        //var isOnline = $cordovaNetwork.isOnline();
 
         $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
 
         });
 
         // listen for Offline event
-        $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+        $rootScope.$on('$cordovaNetwork:offline', function(){
             $ionicLoading.hide();
             $ionicPopup.confirm({
                 title: "Internet Disconnected",
@@ -18,7 +18,7 @@ premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoadi
                     {
                         text: '<b>Exit</b>',
                         type: 'button-dark',
-                        onTap: function(e) {
+                        onTap: function() {
                             ionic.Platform.exitApp();
                         }
                     }
@@ -44,7 +44,7 @@ premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoadi
 
     $scope.movies = [];
 
-    $scope.loadImages = function() {
+    $scope.loadMovies = function() {
         $http.get('https://yts.ag/api/v2/list_movies.json?limit=40&sort_by=year')
             .then(function(res){
                 if (res.data.data.movies != undefined) {
@@ -72,8 +72,7 @@ premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoadi
                     $ionicLoading.hide();
                     $scope.loader = "hide";
                 }
-
-
+                $scope.noSearchResults = false;
             });
 
     };
@@ -120,6 +119,7 @@ premiereApp.controller('AppCtrl', function($scope, $location, $http, $ionicLoadi
                 $scope.movies = res.data.data.movies;
                 $ionicLoading.hide();
                 $scope.loader = "show";
+                $scope.noSearchResults = false;
             });
         $scope.nextPage = 2;
     };
@@ -208,8 +208,8 @@ premiereApp.controller('MovieDetails', function($scope, $stateParams, $http, $wi
     $scope.getTorrents();
 
 
-    $scope.openurl = function(url){
-        window.open(url, '_system', 'location=yes'); return false;
+    $scope.openurl = function(url,ext){
+        window.open(ext+url, '_system', 'location=yes'); return false;
     };
 
 
@@ -239,7 +239,7 @@ premiereApp.controller('MovieDetails', function($scope, $stateParams, $http, $wi
         if ($scope.watchlistData.data.some(function(item) { return item.id === $scope.movie.id })) {
             //alert("Exists!")
 
-            for (i in $scope.watchlistData.data){
+            for (var i in $scope.watchlistData.data){
                 console.log($scope.watchlistData.data[i]);
                 if ($scope.watchlistData.data[i].id == $scope.movie.id){
                    var position = i;
