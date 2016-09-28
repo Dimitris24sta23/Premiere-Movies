@@ -1,33 +1,29 @@
-// Ionic Starter App
+// Created By Dimitris Borbotsialos
+// This application is not intended for piracy but to familiarize with the Ionic Framework.
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-var premiereApp = angular.module('premiere', ['ionic', 'ngSanitize','ngTouch','ionic-native-transitions','ngCordova','ngRoute'])
+var premiereApp = angular.module('premiere', ['ionic', 'ngSanitize', 'ngTouch', 'ionic-native-transitions', 'ngCordova', 'ngRoute']);
 
-premiereApp.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+premiereApp.run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
 
-
-  });
+    });
 
 
-    // Initiate Watchlist in localstorage
+    // Initiate Watchlist in localStorage
     if (window.localStorage.getItem("watchlist") === null) {
         var watchlist = {
-            data : []
+            data: []
         };
 
         window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
@@ -35,10 +31,11 @@ premiereApp.run(function($ionicPlatform) {
 
 });
 
-premiereApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$ionicNativeTransitionsProvider) {
+premiereApp.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicNativeTransitionsProvider) {
 
-  $ionicConfigProvider.scrolling.jsScrolling(false);
+    $ionicConfigProvider.scrolling.jsScrolling(false);
 
+    // Enable Native Transitions
     $ionicNativeTransitionsProvider.setDefaultOptions({
         //duration: 400, // in milliseconds (ms), default 400,
         //slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
@@ -61,89 +58,57 @@ premiereApp.config(function($stateProvider, $urlRouterProvider, $ionicConfigProv
         direction: 'right'
     });
 
-  $stateProvider
-    .state('app', {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'templates/menu.html',
-        controller: 'AppCtrl'
-    })
 
-    .state('app.movies', {
-        url: '/movies',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/movies.html'
-          }
-        }
-    })
+    // Routing
+    $stateProvider
+        .state('app', {
+            url: '/app',
+            abstract: true,
+            templateUrl: 'templates/menu.html',
+            controller: 'MovieAppCtrl'
+        })
 
-      .state('app.news', {
-          url: '/news',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/news.html'
-              }
-          }
-      })
-
-      .state('app.watchlist', {
-          cache: false,
-          url: '/watchlist',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/watchlist.html',
-                  controller: 'WatchList'
-              }
-          }
-      })
-
-      .state('app.downloads', {
-          url: '/downloads',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/downloads.html'
-              }
-          }
-      })
-
-      .state('app.settings', {
-          url: '/settings',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/settings.html'
-              }
-          }
-      })
-
-      .state('app.movie', {
-          cache: false,
-          url: '/movie/:id',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/movie.html',
-                  controller: 'MovieDetails',
-                  resolve: {
-                      movie: function ($stateParams,GetMovie,$ionicLoading) {
-                          $ionicLoading.show({
-                              template: '<p>Loading...</p><ion-spinner></ion-spinner>'
-                          });
-                          return GetMovie.getMovie($stateParams.id)
-                      }
-                  }
-              }
-          }
-      })
-
-      .state('app.credits', {
-        url: '/credits',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/credits.html'
+        .state('app.movies', {
+            url: '/movies',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/movies.html'
+                }
             }
-        }
-    });
+        })
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/movies');
+        .state('app.watchlist', {
+            cache: false,
+            url: '/watchlist',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/watchlist.html',
+                    controller: 'WatchList'
+                }
+            }
+        })
+
+        .state('app.movie', {
+            cache: false,
+            url: '/movie/:id',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/movie.html',
+                    controller: 'MovieDetails',
+                    resolve: {
+                        // Get data from api first and then render movie page
+                        loadMovie: function ($stateParams, GetMovie, $ionicLoading) {
+                            $ionicLoading.show({
+                                template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+                            });
+                            return GetMovie.getMovie($stateParams.id)
+                        }
+                    }
+                }
+            }
+        })
+
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/app/movies');
 });

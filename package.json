@@ -1,6 +1,6 @@
 {
   "name": "Premiere",
-  "version": "1.1.1",
+  "version": "0.1.2",
   "description": "Premiere: Movies",
   "dependencies": {
     "gulp": "^3.5.6",

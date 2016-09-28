@@ -13,51 +13,54 @@
 
         </ion-nav-buttons>
     </ion-nav-bar>
-  <ion-content ng-init="loadMovies()">
-      <div ng-repeat="image in movies track by $index" class="gallery ripple">
-          <a ng-href="#/app/movie/{{image.id}}">
-              <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>
-              <span class="ion-ios-star home-rate"> {{image.rating}}</span>
-              <span class="home-title"> {{image.title}}</span>
-          </a>
-      </div>
-      <button class="button button-block button-balanced" ng-click="loadMore()" ng-show="loader == 'show'">
-          Load more
-      </button>
+    <ion-content ng-init="loadMovies()">
+        <div ng-repeat="image in movies track by $index" class="gallery ripple">
+            <a ng-href="#/app/movie/{{image.id}}">
+                <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>
+                <span class="ion-ios-star home-rate"> {{image.rating}}</span>
+                <span class="home-title"> {{image.title}}</span>
+            </a>
+        </div>
+        <button class="button button-block button-balanced" ng-click="loadMore()" ng-show="loader == 'show'">
+            Load more
+        </button>
 
-      <div class="noResults" ng-show="noSearchResults == true" class="has-header">
-          <span>Son of a nutcracker!<br>What did you searched for?</span>
-      </div>
+        <div class="noResults" ng-show="noSearchResults == true" class="has-header">
+            <span>Son of a nutcracker!<br>What did you searched for?</span>
+        </div>
 
-      <script id="categories-modal.html" type="text/ng-template">
-          <ion-modal-view>
-              <div class="bar bar-header bar-dark">
-                  <h1 class="title">Select a category</h1>
-              </div>
-              <ion-content class="has-header">
-                  <ion-list ng-controller="GenreController">
-                      <ion-radio ng-model="category" value="Latest" ng-change="selectCategory('Latest')">Latest</ion-radio>
-                      <ion-radio ng-repeat="cat in genres" ng-model="$parent.category" value="{{cat}}" ng-change="selectCategory(cat)">{{cat}}</ion-radio>
-                  </ion-list>
-              </ion-content>
-          </ion-modal-view>
-      </script>
+        <script id="categories-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <div class="bar bar-header bar-dark">
+                    <h1 class="title">Select a category</h1>
+                </div>
+                <ion-content class="has-header">
+                    <ion-list ng-controller="GenreController">
+                        <ion-radio ng-model="category" value="Latest" ng-change="selectCategory('Latest')">Latest
+                        </ion-radio>
+                        <ion-radio ng-repeat="cat in genres" ng-model="$parent.category" value="{{cat}}"
+                                   ng-change="selectCategory(cat)">{{cat}}
+                        </ion-radio>
+                    </ion-list>
+                </ion-content>
+            </ion-modal-view>
+        </script>
 
-      <script id="search-modal.html" type="text/ng-template">
-          <ion-modal-view>
-              <div class="bar bar-header bar-dark">
-                  <h1 class="title">Search for a movie</h1>
-              </div>
-              <ion-content class="has-header" scroll="false">
-                  <ion-list>
-                      <label class="item item-input">
-                          <form ng-submit="searchMovie()">
-                            <input type="text" placeholder="Type and press enter" ng-model="searchData.value">
-                          </form>
-                      </label>
-                  </ion-list>
-              </ion-content>
-          </ion-modal-view>
-      </script>
-  </ion-content>
+        <script id="search-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <div class="bar bar-header bar-dark">
+                    <h1 class="title">Search for a movie</h1>
+                </div>
+                <ion-content class="has-header" scroll="false">
+                    <ion-list>
+                        <label class="item item-input">
+                            <form ng-submit="searchMovie()">
+                                <input type="text" placeholder="Type and press enter" ng-model="searchData.value">
+                            </form>
+                        </label>
+                    </ion-list>
+                </ion-content>
+            </ion-modal-view>
+        </script>
+    </ion-content>
 </ion-view>

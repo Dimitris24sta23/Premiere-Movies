@@ -1,138 +1,147 @@
 <ion-view ng-cloak>
     <ion-nav-title>{{movie.title_long}}</ion-nav-title>
-  <ion-content style="background: url('{{movie.background_image_original}}'); background-size: cover;">
-      <div class="row responsive-sm">
-          <div class="col col-33">
-              <img src="img/placeholder.jpg" ng-src="{{movie.large_cover_image}}" width="100%">
-              <a ng-click="watchlist(movie.id)" class="button button-full {{wishIcon}} {{classWishBtn}}">
-                  {{watchlistText}}
-              </a>
-          </div>
-          <div class="col col-67">
-              <div class="movie-details-panel">
-                  <h1>{{movie.title_english}} <span class="runtime">({{movie.runtime}}')</span></h1>
-                  <h5>{{genres}}</h5>
-                  <h2>{{movie.year}}</h2>
-                  <h4 class="imdb"><a ng-click="openurl(movie.imdb_code,'http://www.imdb.com/title/')"><img ng-src="https://yts.ag/assets/images/website/logo-imdb.svg" /></a> <span>{{movie.rating}}</span></h4>
-                  <div style="clear: both"></div>
-                  <h5><span class="ion-archive"> Downloads: {{movie.download_count}}</span></h5>
-                  <h5><span class="ion-thumbsup"> {{movie.like_count}}</span></h5>
-                  <h5><span class="ion-flag"> {{movie.language}}</span> / <span class="ion-eye"> {{movie.mpa_rating}}</span> </h5>
+    <ion-content style="background: url('{{movie.background_image_original}}'); background-size: cover;">
+        <div class="row responsive-sm">
+            <div class="col col-33">
+                <img src="img/placeholder.jpg" ng-src="{{movie.large_cover_image}}" width="100%">
+                <a ng-click="watchlist(movie.id)" class="button button-full {{wishIcon}} {{classWishBtn}}">
+                    {{watchlistText}}
+                </a>
+            </div>
+            <div class="col col-67">
+                <div class="movie-details-panel">
+                    <h1>{{movie.title_english}} <span class="runtime">({{movie.runtime}}')</span></h1>
+                    <h5>{{genres}}</h5>
+                    <h2>{{movie.year}}</h2>
+                    <h4 class="imdb"><a ng-click="openurl(movie.imdb_code,'http://www.imdb.com/title/')"><img
+                            ng-src="https://yts.ag/assets/images/website/logo-imdb.svg"/></a>
+                        <span>{{movie.rating}}</span></h4>
+                    <div style="clear: both"></div>
+                    <h5><span class="ion-archive"> Downloads: {{movie.download_count}}</span></h5>
+                    <h5><span class="ion-thumbsup"> {{movie.like_count}}</span></h5>
+                    <h5><span class="ion-flag"> {{movie.language}}</span> / <span
+                            class="ion-eye"> {{movie.mpa_rating}}</span></h5>
 
 
-                  <div class="description">{{movie.description_intro}}</div>
-                  <br>
-                  <div class="row responsive-sm">
-                      <div class="col col-33">
-                          <a href="#" onclick="window.open(youtubeLink, '_system', 'location=yes'); return false;" class="button button-full ion-social-youtube button-assertive">
-                              Trailer
-                          </a>
-                      </div>
+                    <div class="description">{{movie.description_intro}}</div>
+                    <br>
+                    <div class="row responsive-sm">
+                        <div class="col col-33">
+                            <a href="#" onclick="window.open(youtubeLink, '_system', 'location=yes'); return false;"
+                               class="button button-full ion-social-youtube button-assertive">
+                                Trailer
+                            </a>
+                        </div>
 
-                      <div class="col col-33">
-                          <a ng-click="openModal()" class="button button-full ion-ios-monitor button-dark">
-                              {{quality.value}}
-                          </a>
-                      </div>
-                      <div class="col col-33">
-                          <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;" class="button button-full ion-android-download button-balanced">
-                              Download
-                          </a>
-                      </div>
+                        <div class="col col-33">
+                            <a ng-click="openModal()" class="button button-full ion-ios-monitor button-dark">
+                                {{quality.value}}
+                            </a>
+                        </div>
+                        <div class="col col-33">
+                            <a href="#" onclick="window.open(torrentLink, '_system', 'location=yes'); return false;"
+                               class="button button-full ion-android-download button-balanced">
+                                Download
+                            </a>
+                        </div>
 
-                  </div>
-                  <div class="list">
-                      <div class="item item-divider" ng-if=" movie.cast">
-                          <h2>Cast</h2>
-                      </div>
-                      <a class="item item-avatar" ng-repeat="cast in movie.cast" ng-click="openurl(cast.imdb_code,'http://www.imdb.com/name/nm')">
-                          <img ng-src="{{ cast.url_small_image || 'https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif' }}">
-                          <h2>{{cast.name}}</h2>
-                          <p>{{cast.character_name}}</p>
-                      </a>
+                    </div>
+                    <div class="list">
+                        <div class="item item-divider" ng-if=" movie.cast">
+                            <h2>Cast</h2>
+                        </div>
+                        <a class="item item-avatar" ng-repeat="cast in movie.cast"
+                           ng-click="openurl(cast.imdb_code,'http://www.imdb.com/name/nm')">
+                            <img ng-src="{{ cast.url_small_image || 'https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif' }}">
+                            <h2>{{cast.name}}</h2>
+                            <p>{{cast.character_name}}</p>
+                        </a>
 
-                  </div>
+                    </div>
 
-                  <a ng-click="openScreenshotModal()" class="button button-full ion-images button-positive">
-                      Screenshots
-                  </a>
-
-
-                  <div class="list subs">
-                      <div class="item item-divider" ng-show="subs_gr.length > 0">
-                          <h2>Greek Subtitles</h2>
-                      </div>
-                      <a class="item item-icon-left" ng-repeat="sub in subs_gr | limitTo: 5" ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
-                          <i class="icon ion-chatbubble-working"></i>
-                          {{movie.title_english}}_{{$index +1 }} - (Greek)
-                      </a>
-                      <div class="item item-divider" ng-show="subs_en.length > 0">
-                          <h2>English Subtitles</h2>
-                      </div>
-                      <a class="item item-icon-left" ng-repeat="sub in subs_en | limitTo: 5" ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
-                          <i class="icon ion-chatbubble-working"></i>
-                          {{movie.title_english}}_{{$index +1 }} - (English)
-                      </a>
-                  </div>
-
-                  <div style="overflow: auto;padding: 10px 0">
-                      <h3>Related Movies</h3>
-                      <div ng-repeat="image in Suggestions" class="galleryS">
-                          <a ng-href="#/app/movie/{{image.id}}">
-                              <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>
-                              <span class="ion-ios-star home-rate"> {{image.rating}}</span>
-                              <span class="home-title"> {{image.title}}</span>
-                          </a>
-                      </div>
-                  </div>
-              </div>
+                    <a ng-click="openScreenshotModal()" class="button button-full ion-images button-positive">
+                        Screenshots
+                    </a>
 
 
+                    <div class="list subs">
+                        <div class="item item-divider" ng-show="subs_gr.length > 0">
+                            <h2>Greek Subtitles</h2>
+                        </div>
+                        <a class="item item-icon-left" ng-repeat="sub in subs_gr | limitTo: 5"
+                           ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
+                            <i class="icon ion-chatbubble-working"></i>
+                            {{movie.title_english}}_{{$index +1 }} - (Greek)
+                        </a>
+                        <div class="item item-divider" ng-show="subs_en.length > 0">
+                            <h2>English Subtitles</h2>
+                        </div>
+                        <a class="item item-icon-left" ng-repeat="sub in subs_en | limitTo: 5"
+                           ng-click="openurl('http://www.yifysubtitles.com{{sub.url}}')">
+                            <i class="icon ion-chatbubble-working"></i>
+                            {{movie.title_english}}_{{$index +1 }} - (English)
+                        </a>
+                    </div>
 
-          </div>
+                    <div style="overflow: auto;padding: 10px 0">
+                        <h3>Related Movies</h3>
+                        <div ng-repeat="image in Suggestions" class="galleryS">
+                            <a ng-href="#/app/movie/{{image.id}}">
+                                <img src="img/placeholder.jpg" ng-src="{{image.medium_cover_image}}" width="100%"/>
+                                <span class="ion-ios-star home-rate"> {{image.rating}}</span>
+                                <span class="home-title"> {{image.title}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
 
-
-          <script id="screenshots.html" type="text/ng-template">
-              <ion-modal-view>
-                  <div class="bar bar-header bar-dark">
-                      <h1 class="title">Screenshots</h1>
-                  </div>
-                  <ion-content class="has-header" scroll="false">
-                      <ion-slides options="options" slider="data.slider" class="slider">
-                          <ion-slide-page>
-                              <img src="{{movie.large_screenshot_image1}}" class="image"/>
-                          </ion-slide-page>
-                          <ion-slide-page>
-                              <img src="{{movie.large_screenshot_image2}}" class="image" />
-                          </ion-slide-page>
-                          <ion-slide-page>
-                              <img src="{{movie.large_screenshot_image3}}" class="image"/>
-                          </ion-slide-page>
-                      </ion-slides>
-                  </ion-content>
-              </ion-modal-view>
-          </script>
+            </div>
 
 
-          <script id="my-modal.html" type="text/ng-template">
-              <ion-modal-view>
-                  <div class="bar bar-header bar-dark">
-                      <h1 class="title">Available movie qualities</h1>
-                  </div>
-                  <ion-content class="has-header" scroll="false">
-                      <ion-list>
-                          <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}" ng-model="quality.value" ng-init="checkQuality(quality.value)" ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline" >
+            <script id="screenshots.html" type="text/ng-template">
+                <ion-modal-view>
+                    <div class="bar bar-header bar-dark">
+                        <h1 class="title">Screenshots</h1>
+                    </div>
+                    <ion-content class="has-header" scroll="false">
+                        <ion-slides options="options" slider="data.slider" class="slider">
+                            <ion-slide-page>
+                                <img src="{{movie.large_screenshot_image1}}" class="image"/>
+                            </ion-slide-page>
+                            <ion-slide-page>
+                                <img src="{{movie.large_screenshot_image2}}" class="image"/>
+                            </ion-slide-page>
+                            <ion-slide-page>
+                                <img src="{{movie.large_screenshot_image3}}" class="image"/>
+                            </ion-slide-page>
+                        </ion-slides>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+
+
+            <script id="torrents-modal.html" type="text/ng-template">
+                <ion-modal-view>
+                    <div class="bar bar-header bar-dark">
+                        <h1 class="title">Available movie qualities</h1>
+                    </div>
+                    <ion-content class="has-header" scroll="false">
+                        <ion-list>
+                            <ion-radio ng-repeat="torrent in torrents" value="{{torrent.quality}}"
+                                       ng-model="quality.value" ng-init="checkQuality(quality.value)"
+                                       ng-change="checkQuality(quality.value)"><span class="ion-ios-monitor-outline">
                           </span>{{torrent.quality}} - {{torrent.size}}<span class="badge badge-balanced">Seeds: {{torrent.seeds}} /  Peers: {{torrent.peers}}</span>
-                          </ion-radio>
-                      </ion-list>
-                      <a ng-click="closeModal()" class="button button-full ion-android-checkmark-circle button-balanced modalclose">
-                          OK
-                      </a>
-                  </ion-content>
-              </ion-modal-view>
-          </script>
+                            </ion-radio>
+                        </ion-list>
+                        <a ng-click="closeModal()"
+                           class="button button-full ion-android-checkmark-circle button-balanced modalclose">
+                            OK
+                        </a>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
 
-      </div>
-  </ion-content>
+        </div>
+    </ion-content>
 </ion-view>

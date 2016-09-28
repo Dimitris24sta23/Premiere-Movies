@@ -1,269 +1,301 @@
 /* Empty. Add your own CSS if you like */
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-input,
-button,
-select,
-textarea {
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, input, button, select, textarea {
   font-family: 'Cairo', sans-serif;
 }
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-.item,
-.menu,
-.pane {
+
+.item, .menu, .pane {
   background-color: #272727;
 }
+
 .item {
   border-color: #000;
 }
+
 a.item,
 .item-divider h6 {
   color: #fff;
 }
+
 .activated {
   background-color: #000 !important;
   border-color: #000 !important;
 }
+
 .logo {
   font-weight: bold;
   font-size: 1.7em !important;
 }
+
 .gallery {
   float: left;
   position: relative;
   line-height: 0;
+
+  .home-rate {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: block;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .home-title {
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 0;
+  }
 }
-.gallery .home-rate {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  display: block;
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border-radius: 20px;
-}
-.gallery .home-title {
-  position: absolute;
-  bottom: 0px;
-  display: block;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  line-height: 0;
-}
+
 .galleryS {
   float: left;
   position: relative;
   line-height: 0;
+
+  .home-rate {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: block;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .home-title {
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 0;
+  }
 }
-.galleryS .home-rate {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  display: block;
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border-radius: 20px;
-}
-.galleryS .home-title {
-  position: absolute;
-  bottom: 0px;
-  display: block;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  line-height: 0;
-}
+
 @media (max-width: 9000px) {
   .gallery {
     width: 15%;
   }
-  .gallery .home-title,
-  .galleryS .home-title {
+
+  .gallery .home-title, .galleryS .home-title {
     font-size: 1.3vw;
   }
-  .gallery .home-rate,
-  .gallery .home-rate {
+
+  .gallery .home-rate, .gallery .home-rate {
     font-size: 1.3vw;
   }
+
   .galleryS {
     width: 25%;
   }
 }
+
 @media (max-width: 2000px) {
   .gallery {
     width: 20%;
   }
-  .gallery .home-title,
-  .galleryS .home-title {
+
+  .gallery .home-title, .galleryS .home-title {
     font-size: 1.2vw;
   }
-  .gallery .home-rate,
-  .galleryS .home-rate {
+
+  .gallery .home-rate, .galleryS .home-rate {
     font-size: 1.2vw;
   }
+
   .galleryS {
     width: 25%;
   }
 }
+
 @media (max-width: 700px) {
   .gallery {
     width: 25%;
   }
+
   .gallery .home-title {
     font-size: 2.2vw;
   }
+
   .gallery .home-rate {
     font-size: 2.2vw;
   }
+
   .galleryS {
     width: 50%;
   }
+
   .galleryS .home-title {
     font-size: 2.2vw;
   }
+
   .galleryS .home-rate {
     font-size: 2vw;
   }
 }
+
 @media (max-width: 425px) {
+
   .gallery {
     width: 50%;
   }
+
   .gallery .home-title {
     font-size: 3vw;
   }
+
   .gallery .home-rate {
     font-size: 3vw;
   }
+
   h1 {
     font-size: 9vw;
   }
+
   h2 {
     font-size: 7vw;
   }
+
   .galleryS {
     width: 50%;
   }
+
   .galleryS .home-title {
     font-size: 3.8vw;
   }
+
   .galleryS .home-rate {
     font-size: 3.2vw;
   }
+
 }
+
 .row h1 {
   color: #fff;
 }
+
 .runtime {
   font-size: 0.6em;
 }
+
 .movie-details-panel {
   color: #fff;
   margin: 0 15px;
   padding: 15px;
   background: rgba(0, 0, 0, 0.5);
+
+  h2, h3, h4, h5 {
+    color: #fff;
+  }
+
+  .list a h2 {
+    color: #fff;
+  }
+
+  .item {
+    color: #4d4d4d;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+  }
+
 }
-.movie-details-panel h2,
-.movie-details-panel h3,
-.movie-details-panel h4,
-.movie-details-panel h5 {
-  color: #fff;
-}
-.movie-details-panel .list a h2 {
-  color: #fff;
-}
-.movie-details-panel .item {
-  color: #4d4d4d;
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-}
+
 #output video {
   width: 100%;
 }
+
 #progressBar {
   height: 5px;
   width: 0%;
   background-color: #35b44f;
-  transition: width 0.4s ease-in-out;
+  transition: width .4s ease-in-out;
 }
+
 .item .badge {
   right: 55px;
 }
+
 .item-radio .radio-icon {
   top: -4px;
 }
+
 .modal {
   background: rgba(0, 0, 0, 0);
 }
+
 .modalclose {
   margin-top: 0 !important;
 }
+
 .subs a {
   color: #fff !important;
 }
-textarea,
-input {
+
+textarea, input {
   color: #fff !important;
 }
+
 .noResults {
   font-size: 3vw;
   height: 100%;
   position: relative;
   color: #858585;
+
+  span {
+    display: block;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    line-height: normal;
+  }
 }
-.noResults span {
-  display: block;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 40%;
-  line-height: normal;
+
+.imdb {
+
+  img {
+    float: left;
+  }
+
+  span {
+    float: left;
+    margin: -1px 0 0 10px;
+  }
+
 }
-.imdb img {
-  float: left;
-}
-.imdb span {
-  float: left;
-  margin: -1px 0 0 10px;
-}
+
 .screenshots {
   max-width: 100%;
   max-height: 100%;
 }
+
 .slider {
   width: 100%;
   height: 100%;
   visibility: visible;
 }
+
 .image {
   width: 100% !important;
 }

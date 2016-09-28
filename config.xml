@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.bor.premiere" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.bor.premiere" version="0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Premiere</name>
   <description>
-        Movies
+        Test application for getting to know the Ionic framework. This is not intended for piracy.
     </description>
   <author email="you@example.com" href="http://example.com.com/">
       dimitrisbor@gmail.com
