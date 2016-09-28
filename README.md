@@ -2,7 +2,7 @@
 ![Alt text](https://github.com/Dimitris24sta23/PremiereMovies/blob/master/resources/android/icon/drawable-hdpi-icon.png?raw=true "Premiere")
 
 # Premiere Movies
-Premiere is an Ionic application displaying and downloading movie torrents using the yts.ag api (https://yts.ag/api).
+Premiere is an Ionic application displaying and downloading movie torrents using the YTS api (https://yts.ag/api).
 
 ## Features
 - Latest Movies
@@ -41,6 +41,8 @@ $ ionic serve
 $ ionic build android
 $ ionic run android
 ```
+
+Ionic, angular.js, android, ios, movies, torrents, yify, yts, app, subtitles, download
 
 > Warning: This application is not intended for piracy but to familiarize with the Ionic Framework.
 > Use it at your own risk.
