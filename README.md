@@ -44,3 +44,7 @@ $ ionic run android
 
 > Warning: This application is not intended for piracy but to familiarize with the Ionic Framework.
 > Use it at your own risk.
+
+## Screenshots
+
+![Alt text](https://github.com/Dimitris24sta23/PremiereMovies/blob/master/resources/screenshot1.jpg?raw=true "Movies List") ![Alt text](https://github.com/Dimitris24sta23/PremiereMovies/blob/master/resources/screenshot2.jpg?raw=true "Movie Details")
